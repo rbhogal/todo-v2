@@ -8,9 +8,6 @@ const TodoForm = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    console.log(e.target);
-
     dispatch(
       addTodo(
         // reducer
@@ -25,6 +22,7 @@ const TodoForm = () => {
     <div>
       <form className="ui massive fluid input box-shadow" onSubmit={onSubmit}>
         <input
+        autoComplete="off"
           id="input"
           type="text"
           placeholder="What do you need to do?"

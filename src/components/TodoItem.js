@@ -1,27 +1,40 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import "./TodoItem.css";
+import { toggleComplete, deleteTodo } from "../features/todoSlice";
 
-const TodoItem = ({todo, completed}) => {
+const TodoItem = ({ todo, id, completed }) => {
+  const dispatch = useDispatch();
 
-    
+  const handleCompletedClick = () => {
+    dispatch(toggleComplete({ id: id, completed: !completed }));
+  };
+
+  const handleDeleteClick = () => {
+    dispatch(deleteTodo({ id: id }));
+  };
+
   return (
-    <div
-      className="ui middle aligned divided list TodoList"
-      style={{ margin: "0", borderRadius: "5px" }}
-    >
-      <div className="item">
-        <div className="right floated content">
-          <div style={{backgroundColor: ' rgba(255, 0, 0, 0.74)'}} className="ui button">DEL</div>
-        </div>
-        <div className="middle aligned left floated content">
-            <div style={{backgroundColor: 'rgba(0, 214, 0, 0.7)'}}className=" ui button">Check</div>
-        </div>
-        <div className="content">
-          <h1 className="list-item">{todo}</h1>
-        </div>
+    <li className="TodoList">
+      <input
+        onChange={handleCompletedClick}
+        type="checkbox"
+        id="checkbox"
+        checked={completed}
+      ></input>
+      <h1 id={id} className="list-item">
+        {todo}
+      </h1>
+      <div className="flex-container">
+        <input
+          onClick={handleDeleteClick}
+          type="button"
+          value="DEL"
+          id="delete"
+        />
       </div>
-    </div>
+    </li>
   );
 };
 
